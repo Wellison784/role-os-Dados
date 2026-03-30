@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador Profissional 3D</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+
+    <div class="container">
+        <div class="dice-wrapper">
+            <div class="scene">
+                <div class="cube idle" id="cube1">
+                    <div class="cube__face cube__face--1"><span class="dot d1"></span></div>
+                    <div class="cube__face cube__face--2"><span class="dot d1"></span><span class="dot d2"></span></div>
+                    <div class="cube__face cube__face--3"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+                    <div class="cube__face cube__face--4"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span></div>
+                    <div class="cube__face cube__face--5"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span></div>
+                    <div class="cube__face cube__face--6"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span></div>
+                </div>
+            </div>
+            <div class="scene">
+                <div class="cube idle" id="cube2">
+                    <div class="cube__face cube__face--1"><span class="dot d1"></span></div>
+                    <div class="cube__face cube__face--2"><span class="dot d1"></span><span class="dot d2"></span></div>
+                    <div class="cube__face cube__face--3"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+                    <div class="cube__face cube__face--4"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span></div>
+                    <div class="cube__face cube__face--5"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span></div>
+                    <div class="cube__face cube__face--6"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span></div>
+                </div>
+            </div>
+        </div>
+        
+        <h1>Sorteador</h1>
+        
+        <button id="btnAtivarSom" onclick="ativarSom()" style="background:#333; color:#fff; padding:5px; margin-bottom:15px; font-size:11px; border-radius:5px; width:auto; cursor:pointer;">
+            🔊 ATIVAR SOM (CLIQUE AQUI)
+        </button>
+
+        <div class="inputs-group">
+            <input type="number" id="min" value="1">
+            <input type="number" id="max" value="10">
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="noRepeat" checked>
+            <label for="noRepeat">Não repetir números</label>
+        </div>
+
+        <button class="btn-sortear" id="btnSortear" onclick="sortear()">Sortear</button>
+
+        <p class="label-text">Resultado</p>
+        <div class="display-result pop-animation" id="currentResult">-</div>
+
+        <p class="label-text green-label">Resultados sorteados</p>
+        <div class="display-result history-display" id="historyList">-</div>
+
+        <button class="btn-limpar" onclick="limpar()">Limpar resultados</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

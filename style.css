@@ -1,0 +1,143 @@
+/* Reset básico e Variáveis */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #0a0a0a;
+    --container-bg: #161616;
+    --input-bg: #2c2c2c;
+    --primary-green: #4CAF50;
+    --primary-green-dark: #2E7D32;
+    --text-color: #ffffff;
+    --text-muted: #aaa;
+    --dice-dot-color: #000;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px; /* Aumentei um pouco para dois dados */
+    text-align: center;
+    padding: 30px;
+    background-color: var(--container-bg);
+    border-radius: 20px;
+}
+
+h1 { font-size: 2rem; margin-bottom: 20px; font-weight: 300; }
+
+/* --- ESTILIZAÇÃO DOS DADOS 3D --- */
+.dice-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Espaço entre os dados */
+    margin-bottom: 30px;
+}
+
+.scene {
+    width: 50px; /* Diminuí um pouco o tamanho de 60px para 50px */
+    height: 50px;
+    perspective: 500px;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-25px); /* Metade do novo tamanho */
+    transition: transform 0.1s linear, background-color 0.5s ease;
+}
+
+/* Animações de Rotação (inalteradas) */
+@keyframes spinIdle {
+    from { transform: translateZ(-25px) rotateX(0deg) rotateY(0deg); }
+    to { transform: translateZ(-25px) rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes spinFast {
+    0% { transform: translateZ(-25px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    100% { transform: translateZ(-25px) rotateX(1080deg) rotateY(720deg) rotateZ(360deg); }
+}
+
+.cube.idle { animation: spinIdle 12s infinite linear; }
+.cube.spinning { animation: spinFast 0.6s ease-out; }
+
+/* Estilo das Faces e Pontos */
+.cube__face {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px; /* Diminuí um pouco */
+    display: grid;
+    grid-template-areas:
+        "tl tc tr"
+        "cl cc cr"
+        "bl bc br";
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 4px; /* Diminuí um pouco */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    transition: background-color 0.5s ease; 
+}
+
+/* Classes de cor (inalteradas) */
+.cube.color-default .cube__face { background-color: #00e5ff; }
+.cube.color-red .cube__face { background-color: #ff4d4d; }
+.cube.color-green .cube__face { background-color: #4CAF50; }
+.cube.color-blue .cube__face { background-color: #2979FF; }
+.cube.color-purple .cube__face { background-color: #AA00FF; }
+
+.dot {
+    display: block;
+    width: 9px; /* Diminuí um pouco */
+    height: 9px;
+    background-color: var(--dice-dot-color);
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+}
+
+/* Posicionamento 3D das Faces (ajustado para translateZ(-25px)) */
+.cube__face--1 { transform: rotateY(  0deg) translateZ(25px); }
+.cube__face--2 { transform: rotateY( 90deg) translateZ(25px); }
+.cube__face--3 { transform: rotateY(180deg) translateZ(25px); }
+.cube__face--4 { transform: rotateY(-90deg) translateZ(25px); }
+.cube__face--5 { transform: rotateX( 90deg) translateZ(25px); }
+.cube__face--6 { transform: rotateX(-90deg) translateZ(25px); }
+
+/* Posicionamento dos Pontos (inalterado, usa as mesmas grid areas) */
+/* Face 1...Face 6 (reutiliza o CSS anterior, que não mudei aqui para brevidade, mas está no arquivo completo) */
+.cube__face--1 .dot.d1 { grid-area: cc; }
+.cube__face--2 .dot.d1 { grid-area: tl; } .cube__face--2 .dot.d2 { grid-area: br; }
+.cube__face--3 .dot.d1 { grid-area: tl; } .cube__face--3 .dot.d2 { grid-area: cc; } .cube__face--3 .dot.d3 { grid-area: br; }
+.cube__face--4 .dot.d1 { grid-area: tl; } .cube__face--4 .dot.d2 { grid-area: tr; } .cube__face--4 .dot.d3 { grid-area: bl; } .cube__face--4 .dot.d4 { grid-area: br; }
+.cube__face--5 .dot.d1 { grid-area: tl; } .cube__face--5 .dot.d2 { grid-area: tr; } .cube__face--5 .dot.d3 { grid-area: cc; } .cube__face--5 .dot.d4 { grid-area: bl; } .cube__face--5 .dot.d5 { grid-area: br; }
+.cube__face--6 .dot.d1 { grid-area: tl; } .cube__face--6 .dot.d2 { grid-area: tc; } .cube__face--6 .dot.d3 { grid-area: tr; } .cube__face--6 .dot.d4 { grid-area: bl; } .cube__face--6 .dot.d5 { grid-area: bc; } .cube__face--6 .dot.d6 { grid-area: br; }
+
+/* --- RESTO DA INTERFACE --- (inalterado) */
+.label-text { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+.inputs-group { display: flex; gap: 15px; justify-content: center; margin-bottom: 15px; }
+input[type="number"] { width: 100px; padding: 12px; border-radius: 10px; border: 1px solid #333; background-color: var(--input-bg); color: white; text-align: center; }
+.checkbox-group { margin-bottom: 25px; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; color: #888; }
+button { width: 100%; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+.btn-sortear { background: linear-gradient(180deg, var(--primary-green) 0%, var(--primary-green-dark) 100%); color: white; margin-bottom: 25px; }
+.btn-limpar { background-color: transparent; border: 1.5px solid var(--primary-green); color: var(--primary-green); margin-top: 15px; }
+.display-result { background-color: var(--input-bg); padding: 15px; border-radius: 12px; font-size: 1.8rem; font-weight: bold; min-height: 65px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 1px solid #333; }
+@keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+.pop-animation.animate { animation: popIn 0.4s ease-out forwards; }
+.green-label { color: #81C784; margin-top: 10px; }
+.history-display { font-size: 1rem; color: #81C784; font-weight: normal; word-break: break-all; padding: 10px; min-height: 40px; }
