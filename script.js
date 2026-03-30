@@ -106,3 +106,13 @@ function limpar() {
         c.classList.add('idle');
     });
 }
+// Registro do Service Worker para PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker registrado!'))
+            .catch(err => console.log('Falha ao registrar SW', err));
+    });
+}
+
+// ... (mantenha todo o restante do seu código de sorteio, som e limpar abaixo)
